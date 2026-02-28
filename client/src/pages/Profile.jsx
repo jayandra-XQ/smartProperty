@@ -1,13 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useEffect, useRef, useState } from 'react'
-import { app } from '../firebase';
-import {
-  getDownloadURL,
-  getStorage,
-  ref,
-  uploadBytesResumable,
-} from 'firebase/storage';
+
+
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -20,30 +15,35 @@ export default function Profile() {
   const [formData, setFormData] = useState({});
 
 
-  const handleFileUpload = (file) => {
-    const storage = getStorage(app);
-    const fileName = new Date().getTime() + file.name;
-    const storageRef = ref(storage, fileName);
-    const uploadTask = uploadBytesResumable(storageRef, file);
+  const handleFileUpload = async (file) => {
+    try {
+      setFileUploadError(false);
+      setFilePerc(0);
 
-    uploadTask.on('state_changed',
-      (snapshot) => {
-        const progress =
-          (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
-        setFilePerc(Math.round(progress));
-      },
+      const data = new FormData();
+      data.append("file", file);
+      data.append("upload_preset", "smartProperty");
+      data.append("cloud_name", "dyeicallf");
 
-      (error) => {
-        setFileUploadError(true);
-      },
-      () => {
-        getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
-          setFormData({ ...formData, avatar: downloadURL })
-        });
-      }
+      const res = await fetch(
+        "https://api.cloudinary.com/v1_1/dyeicallf/image/upload",
+        {
+          method: "POST",
+          body: data,
+        }
+      );
+      const uploadData = await res.json();
+      setFilePerc(100);
+      setFormData((prev) => ({
+        ...prev,
+        avatar: uploadData.secure_url,
+      }));
 
-    )
-  }
+    } catch (error) {
+      setFileUploadError(true);
+      error.response && console.log(error.response.data);
+    }
+  };
 
 
   useEffect(() => {
