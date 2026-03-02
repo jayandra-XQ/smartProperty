@@ -1,5 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { current } from '@reduxjs/toolkit';
 import { useRef, useState } from 'react'
 
 
@@ -7,7 +8,13 @@ import {
   updateUserStart,
   updateUserSuccess,
   updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess,
+  signOutUserStart,
 } from '../redux/user/userSlice';
+
+
 
 
 export default function Profile() {
@@ -91,6 +98,44 @@ export default function Profile() {
     }
   }
 
+  const handleDelete = async () => {
+    try {
+      dispatch(deleteUserStart())
+
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {
+        method: 'DELETE',
+      });
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return
+      }
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  }
+
+  const handleSignout = async () => {
+    try {
+      dispatch(signOutUserStart())
+      const res = await fetch('/api/auth/signout');
+      const data = await res.json();
+
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return
+      };
+
+      dispatch(deleteUserSuccess(data));
+    } catch (error) {
+      dispatch(deleteUserFailure(error.message));
+    }
+  }
+
+
+
 
 
   return (
@@ -157,8 +202,8 @@ export default function Profile() {
       </form>
 
       <div className='flex justify-between mt-5'>
-        <span className='text-red-700 cursor-pointer'>Delete account</span>
-        <span className='text-red-700 cursor-pointer'>Sign out</span>
+        <span className='text-red-700 cursor-pointer' onClick={handleDelete}>Delete account</span>
+        <span className='text-red-700 cursor-pointer' onClick={handleSignout}>Sign out</span>
 
       </div>
 
