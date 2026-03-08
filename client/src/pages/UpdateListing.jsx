@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function UpdateListing() {
   const navigate = useNavigate();
@@ -33,6 +33,7 @@ export default function UpdateListing() {
         const res = await fetch(`/api/listing/get/${params.listingId}`);
         const data = await res.json();
 
+
         if (data.success === false) {
           setError(true);
           return;
@@ -41,7 +42,7 @@ export default function UpdateListing() {
         setFormData(data);
       } catch (error) {
         setError(true);
-        error("Failed to fetch listing", error);
+        console.error("Failed to fetch listing", error);
       }
     };
 
