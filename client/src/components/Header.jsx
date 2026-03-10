@@ -1,9 +1,27 @@
 import { FaSearch } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useSelector } from 'react-redux'
+import { useState } from 'react';
 
 export default function Header() {
   const { currentUser } = useSelector(state => state.user)
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const [searchTerm, setSearchTerm] = useState(() => {
+    const params = new URLSearchParams(location.search);
+    return params.get('searchTerm') || '';
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set('searchTerm', searchTerm);
+    const searchQuery = urlParams.toString();
+    navigate(`/search?${searchQuery}`);
+  };
+
   return (
     <header className="bg-slate-200 shadow-md ">
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
@@ -15,13 +33,17 @@ export default function Header() {
           </h1>
         </Link>
 
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center">
+        <form onSubmit={handleSubmit} className="bg-slate-100 p-3 rounded-lg flex items-center">
           <input
             type="text"
             placeholder="Search..."
             className="bg-transparent focus:outline-none w-24 sm:w-64"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <FaSearch className="text-slate-600" />
+          <button>
+            <FaSearch className='text-slate-600' />
+          </button>
         </form>
 
         <ul className='flex gap-5'>
@@ -34,14 +56,16 @@ export default function Header() {
           </Link>
 
           <Link to='/profile'>
-
-            {
-              currentUser ? (
-                <img className='rounded-full h-7 w-7 object-cover' src={currentUser.avatar} alt='profile' />
-              ) : (
-                <li className='cursor-pointer hover:underline'>Sign in</li>
-              )}
-          </ Link >
+            {currentUser ? (
+              <img
+                className='rounded-full h-7 w-7 object-cover'
+                src={currentUser.avatar}
+                alt='profile'
+              />
+            ) : (
+              <li className='cursor-pointer hover:underline'>Sign in</li>
+            )}
+          </Link>
         </ul>
       </div>
     </header>
