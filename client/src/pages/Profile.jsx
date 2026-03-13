@@ -1,6 +1,7 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
+import { Link } from "react-router-dom";
 
 
 import {
@@ -122,14 +123,18 @@ export default function Profile() {
 
   const handleSignout = async () => {
     try {
-      dispatch(signOutUserStart())
-      const res = await fetch('/api/auth/signout');
+      dispatch(signOutUserStart());
+
+      const res = await fetch('/api/auth/signout', {
+        method: 'POST',
+      });
+
       const data = await res.json();
 
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
-        return
-      };
+        return;
+      }
 
       dispatch(deleteUserSuccess(data));
     } catch (error) {

@@ -253,7 +253,7 @@ export default function CreateListing() {
             </div>
 
             <div className="flex items-center gap-2">
-              <input type="number" id="bathrooms" min="1" max="10" requiredonChange={handleChange}
+              <input type="number" id="bathrooms" min="1" max="10" required onChange={handleChange}
                 value={formData.bathrooms} />
               <p>Baths</p>
             </div>
