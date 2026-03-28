@@ -127,7 +127,7 @@ export default function UpdateListing() {
   return (
     <div className='min-h-screen bg-slate-50'>
 
-      {/* ── PAGE HEADER ── */}
+
       <div className='w-full bg-[#0d1b2a] relative overflow-hidden'>
         <div className='absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-amber-500 to-transparent'></div>
         <div className='absolute -bottom-10 -right-10 w-48 h-48 bg-amber-500 opacity-5 rounded-full'></div>
@@ -146,16 +146,14 @@ export default function UpdateListing() {
         </div>
       </div>
 
-      {/* ── FORM ── */}
+
       <form onSubmit={handleSubmit}>
         <div className='max-w-5xl mx-auto px-8 py-10 grid grid-cols-1 lg:grid-cols-2 gap-8'>
 
-          {/* ━━━━━━━━━━━━━━━━━━━━
-              LEFT COLUMN
-          ━━━━━━━━━━━━━━━━━━━━ */}
+
           <div className='flex flex-col gap-6'>
 
-            {/* Basic Info card */}
+
             <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
               <div className='px-7 py-5 border-b border-slate-100 flex items-center gap-3'>
                 <div className='w-1 h-5 bg-amber-500 rounded-full'></div>
@@ -189,7 +187,7 @@ export default function UpdateListing() {
               </div>
             </div>
 
-            {/* Type & Amenities card */}
+
             <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
               <div className='px-7 py-5 border-b border-slate-100 flex items-center gap-3'>
                 <div className='w-1 h-5 bg-amber-500 rounded-full'></div>
@@ -214,7 +212,7 @@ export default function UpdateListing() {
               </div>
             </div>
 
-            {/* Pricing card */}
+
             <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
               <div className='px-7 py-5 border-b border-slate-100 flex items-center gap-3'>
                 <div className='w-1 h-5 bg-amber-500 rounded-full'></div>
@@ -275,12 +273,10 @@ export default function UpdateListing() {
             </div>
           </div>
 
-          {/* ━━━━━━━━━━━━━━━━━━━━
-              RIGHT COLUMN
-          ━━━━━━━━━━━━━━━━━━━━ */}
+
           <div className='flex flex-col gap-6'>
 
-            {/* Images card */}
+
             <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
               <div className='px-7 py-5 border-b border-slate-100 flex items-center justify-between'>
                 <div className='flex items-center gap-3'>
@@ -297,7 +293,7 @@ export default function UpdateListing() {
                   Upload up to <strong className='text-slate-600'>6 photos</strong>. The first image is the cover. Max 2MB each.
                 </p>
 
-                {/* Upload area */}
+
                 <div className='border-2 border-dashed border-slate-200 hover:border-amber-400 rounded-xl p-5 text-center transition-colors duration-200 bg-slate-50/50 relative'>
                   <div className='text-3xl mb-2'>📷</div>
                   <p className='text-sm text-slate-500 mb-3'>Choose photos to upload</p>
@@ -337,7 +333,7 @@ export default function UpdateListing() {
                   </div>
                 )}
 
-                {/* Uploaded images */}
+
                 {formData.imageUrls.length > 0 && (
                   <div className='flex flex-col gap-2 mt-1'>
                     {formData.imageUrls.map((url, index) => (
@@ -363,7 +359,7 @@ export default function UpdateListing() {
               </div>
             </div>
 
-            {/* Submit card */}
+
             <div className='bg-[#0d1b2a] rounded-2xl overflow-hidden relative'>
               <div className='absolute top-0 left-0 right-0 h-0.5 bg-linear-to-r from-transparent via-amber-500 to-transparent'></div>
               <div className='absolute -bottom-8 -right-8 w-32 h-32 bg-amber-500 opacity-5 rounded-full'></div>

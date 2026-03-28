@@ -50,7 +50,7 @@ export default function SignUp() {
         {/* Card */}
         <div className='bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden'>
 
-          {/* Card Header */}
+
           <div className='bg-slate-800 px-8 py-8 text-center'>
             <p className='text-xs font-semibold tracking-widest uppercase text-amber-400 mb-2'>
               Get Started
@@ -61,7 +61,7 @@ export default function SignUp() {
             </p>
           </div>
 
-          {/* Card Body */}
+
           <div className='px-8 py-8'>
             <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
 
@@ -79,7 +79,7 @@ export default function SignUp() {
                 />
               </div>
 
-              {/* Email */}
+
               <div className='flex flex-col gap-1.5'>
                 <label className='text-xs font-semibold tracking-widest uppercase text-slate-500'>
                   Email Address
@@ -93,7 +93,7 @@ export default function SignUp() {
                 />
               </div>
 
-              {/* Password */}
+
               <div className='flex flex-col gap-1.5'>
                 <label className='text-xs font-semibold tracking-widest uppercase text-slate-500'>
                   Password
@@ -107,14 +107,14 @@ export default function SignUp() {
                 />
               </div>
 
-              {/* Error */}
+
               {error && (
                 <div className='bg-red-50 border border-red-200 rounded-lg px-4 py-3'>
                   <p className='text-red-600 text-sm font-medium'>{error}</p>
                 </div>
               )}
 
-              {/* Submit */}
+
               <button
                 disabled={loading}
                 className='w-full bg-slate-800 text-white py-3 rounded-lg text-sm font-semibold tracking-wide uppercase hover:bg-slate-700 active:bg-slate-900 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 mt-1'
@@ -152,7 +152,7 @@ export default function SignUp() {
           </div>
         </div>
 
-        {/* Below card note */}
+
         <p className='text-center text-xs text-slate-400 mt-6'>
           By creating an account, you agree to smartProperty's terms & privacy policy.
         </p>

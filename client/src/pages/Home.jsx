@@ -54,13 +54,13 @@ export default function Home() {
 
       <section className='min-h-screen grid grid-cols-1 lg:grid-cols-2'>
 
-        {/* LEFT — Text panel */}
+
         <div className='bg-[#0d1b2a] flex flex-col justify-center px-10 md:px-16 lg:px-20 py-24 relative overflow-hidden'>
 
-          {/* Decorative amber blobs */}
+
           <div className='absolute -top-32 -left-32 w-96 h-96 bg-amber-500 rounded-full opacity-5'></div>
           <div className='absolute -bottom-20 -right-20 w-72 h-72 bg-amber-400 rounded-full opacity-5'></div>
-          {/* Subtle grid texture */}
+
           <div
             className='absolute inset-0 opacity-[0.025]'
             style={{
@@ -95,13 +95,13 @@ export default function Home() {
               Place to Live
             </h1>
 
-            {/* Subtitle */}
+
             <p className='text-slate-400 text-base leading-relaxed mb-10 max-w-sm'>
               Discover curated properties in the most desirable neighbourhoods.
               Buying, selling, or renting — we guide you every step of the way.
             </p>
 
-            {/* CTAs */}
+
             <div className='flex flex-col sm:flex-row gap-4 mb-14'>
               <Link
                 to='/search'
@@ -117,7 +117,7 @@ export default function Home() {
               </Link>
             </div>
 
-            {/* Stats row */}
+
             <div className='flex gap-10 pt-8 border-t border-slate-700'>
               {[
                 { number: '500+', label: 'Listings' },
@@ -133,7 +133,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* RIGHT — Swiper image panel */}
+
         <div className='relative min-h-[55vh] lg:min-h-screen bg-slate-900 overflow-hidden'>
           {offerListings && offerListings.length > 0 ? (
             <>
@@ -152,12 +152,12 @@ export default function Home() {
                       }}
                       className='h-full w-full min-h-[55vh] lg:min-h-screen relative'
                     >
-                      {/* Gradient overlay */}
+
                       <div
                         className='absolute inset-0'
                         style={{ background: 'linear-gradient(to top, rgba(13,27,42,0.85) 0%, rgba(13,27,42,0.2) 50%, transparent 100%)' }}
                       ></div>
-                      {/* Property badge */}
+
                       <div className='absolute bottom-8 left-8 right-8 z-10'>
                         <p className='text-xs font-bold tracking-widest uppercase text-amber-400 mb-1'>Featured Property</p>
                         <p className='text-white font-bold text-xl truncate'>{listing.name}</p>
@@ -168,14 +168,14 @@ export default function Home() {
                 ))}
               </Swiper>
 
-              {/* Gold left accent line */}
+
               <div
                 className='absolute top-0 bottom-0 left-0 z-10'
                 style={{ width: '2px', background: 'linear-gradient(to bottom, transparent, #f59e0b, transparent)' }}
               ></div>
             </>
           ) : (
-            /* ── RICH STATIC PANEL — shows while/if no listings ── */
+
             <div className='absolute inset-0 overflow-hidden' style={{ background: 'linear-gradient(160deg, #0f2236 0%, #0d1b2a 60%, #111827 100%)' }}>
 
               {/* Grid texture */}
@@ -214,7 +214,7 @@ export default function Home() {
                   ))}
                 </div>
 
-                {/* BOTTOM — big price badge */}
+
                 <div className='rounded-2xl p-6' style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(245,158,11,0.2)' }}>
                   <p className='text-xs font-bold tracking-widest uppercase text-amber-500 mb-3 flex items-center gap-2'>
                     <span style={{ display: 'inline-block', width: '12px', height: '1px', background: '#f59e0b' }}></span>
@@ -358,9 +358,7 @@ export default function Home() {
 
       </div>
 
-      {/* ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-    TESTIMONIALS
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ */}
+
       <div className='bg-slate-50 border-t border-slate-100 py-20 px-6'>
         <div className='max-w-6xl mx-auto'>
 
@@ -400,10 +398,10 @@ export default function Home() {
                 key={t.name}
                 className='bg-white rounded-2xl p-7 border border-slate-100 shadow-sm hover:border-amber-300 hover:shadow-md transition-all duration-300 flex flex-col gap-4 relative overflow-hidden'
               >
-                {/* Big decorative quote mark */}
+
                 <div className='absolute -top-2 left-4 text-7xl font-serif text-amber-100 leading-none select-none pointer-events-none'>"</div>
 
-                {/* Stars + badge row */}
+
                 <div className='flex items-center justify-between relative z-10'>
                   <div className='flex gap-0.5'>
                     {[...Array(5)].map((_, i) => (
@@ -435,7 +433,7 @@ export default function Home() {
             ))}
           </div>
 
-          {/* Bottom stats strip */}
+
           <div className='flex items-center justify-center gap-10 mt-14 pt-10 border-t border-slate-200 flex-wrap'>
             {[
               { number: '4.9', label: 'Average Rating' },

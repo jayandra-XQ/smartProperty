@@ -132,7 +132,7 @@ export default function Listing() {
                   )}
                 </div>
 
-                {/* Name */}
+
                 <h1 className='text-2xl lg:text-3xl font-bold text-[#0d1b2a] leading-snug mb-3'>
                   {listing.name}
                 </h1>
@@ -226,12 +226,7 @@ export default function Listing() {
                 </div>
               </div>
 
-              {/* ── CONTACT CARD ──
-                  Shows if:
-                  1. User is not logged in → prompt to sign in
-                  2. User is logged in and is NOT the owner → show contact button
-                  3. User is logged in and IS the owner → show "your listing" message
-              */}
+
               {!currentUser ? (
                 /* Not signed in */
                 <div className='bg-[#0d1b2a] rounded-2xl overflow-hidden relative'>
