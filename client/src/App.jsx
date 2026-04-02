@@ -1,6 +1,7 @@
 import React from 'react'
 import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import Home from './pages/Home'
 import About from './pages/About'
 import SignIn from './pages/SignIn'
@@ -13,6 +14,13 @@ import CreateListing from './pages/CreateListing'
 import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
 import Search from './pages/Search';
+
+
+const AdminRoute = () => {
+  const { currentUser } = useSelector(state => state.user);
+  if (!currentUser) return <Navigate to='/sign-in' />;
+  return currentUser.role === 'admin' ? <Outlet /> : <Navigate to='/' />;
+};
 
 
 function App() {
@@ -29,8 +37,12 @@ function App() {
         <Route path="/sign-up" element={<SignUp />} />
         <Route path='/listing/:listingId' element={<Listing />} />
 
+
         <Route element={<PrivateRoute />}>
           <Route path='/profile' element={<Profile />} />
+        </Route>
+
+        <Route element={<AdminRoute />}>
           <Route path='/create-listing' element={<CreateListing />} />
           <Route path='/update-listing/:listingId' element={<UpdateListing />} />
         </Route>
