@@ -20,18 +20,18 @@ export default function Header() {
     navigate(`/search?${searchQuery}`);
   };
 
-  // Helper to detect active route for nav links
+
   const isActive = (path) => location.pathname === path;
 
   return (
     <header className='bg-[#0d1b2a] shadow-lg sticky top-0 z-50'>
 
-      {/* Gold top accent line */}
-      <div className='h-[2px] bg-gradient-to-r from-transparent via-amber-500 to-transparent w-full'></div>
+
+      <div className='h-0.5 bg-linear-to-r from-transparent via-amber-500 to-transparent w-full'></div>
 
       <div className='flex justify-between items-center max-w-6xl mx-auto px-6 py-4 gap-4'>
 
-        {/* ── LOGO ── */}
+
         <Link to='/'>
           <h1 className='font-bold text-lg sm:text-xl flex items-center gap-0.5 tracking-tight'>
             <span className='text-slate-400'>smart</span>
@@ -39,7 +39,7 @@ export default function Header() {
           </h1>
         </Link>
 
-        {/* ── SEARCH BAR ── */}
+
         <form
           onSubmit={handleSubmit}
           className='flex items-center bg-slate-800 border border-slate-700 hover:border-amber-500/50 focus-within:border-amber-500 transition-colors duration-200 rounded-lg px-4 py-2 gap-3 flex-1 max-w-sm'
@@ -51,12 +51,12 @@ export default function Header() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <button type='submit' className='text-slate-400 hover:text-amber-400 transition-colors duration-200 flex-shrink-0'>
+          <button type='submit' className='text-slate-400 hover:text-amber-400 transition-colors duration-200 shrink-0'>
             <FaSearch className='text-sm' />
           </button>
         </form>
 
-        {/* ── NAV LINKS ── */}
+
         <ul className='flex items-center gap-1'>
           <Link to='/'>
             <li className={`hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-lg transition-all duration-200 cursor-pointer
@@ -77,7 +77,15 @@ export default function Header() {
             </li>
           </Link>
 
-          {/* Profile / Sign In */}
+          {currentUser?.role === 'admin' && (
+            <Link to='/admin'>
+              <li className='hidden sm:inline-block text-sm font-medium px-4 py-2 rounded-lg text-amber-400 bg-slate-800'>
+                Dashboard
+              </li>
+            </Link>
+          )}
+
+
           <Link to='/profile'>
             {currentUser ? (
               <div className='ml-2 flex items-center gap-2 bg-slate-800 border border-slate-700 hover:border-amber-500/50 px-3 py-1.5 rounded-lg transition-all duration-200 cursor-pointer'>

@@ -14,6 +14,7 @@ import CreateListing from './pages/CreateListing'
 import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
 import Search from './pages/Search';
+import AdminDashboard from './pages/Admindashboard'
 
 
 const AdminRoute = () => {
@@ -45,6 +46,7 @@ function App() {
         <Route element={<AdminRoute />}>
           <Route path='/create-listing' element={<CreateListing />} />
           <Route path='/update-listing/:listingId' element={<UpdateListing />} />
+          <Route path='/admin' element={<AdminDashboard />} />
         </Route>
 
       </Routes>
