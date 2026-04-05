@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRef, useState } from 'react'
 import { Link } from "react-router-dom";
 import ConfirmModal from '../components/ConfirmModal';
+import { getFavourites } from '../utils/favourites';
+
+import { useEffect } from 'react';
 
 import {
   updateUserStart,
@@ -24,8 +27,9 @@ export default function Profile() {
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
+  const [savedListings, setSavedListings] = useState([]);
 
-  // ── Modal state ──
+
   const [modal, setModal] = useState({ open: false, id: null, type: '' });
   const [deleting, setDeleting] = useState(false);
 
@@ -75,7 +79,6 @@ export default function Profile() {
     } catch (error) { dispatch(updateUserFailure(error.message)); }
   }
 
-  // Called by modal confirm button
   const handleDelete = async () => {
     try {
       dispatch(deleteUserStart())
@@ -116,7 +119,6 @@ export default function Profile() {
     } catch (error) { console.log(error.message); }
   }
 
-  // ── Single confirm handler for modal ──
   const handleConfirm = async () => {
     setDeleting(true);
     if (modal.type === 'listing') await handleListingDelete(modal.id);
@@ -125,10 +127,21 @@ export default function Profile() {
     setModal({ open: false, id: null, type: '' });
   };
 
+  useEffect(() => {
+    const fetchSaved = async () => {
+      const ids = getFavourites();
+      if (ids.length === 0) return;
+      const results = await Promise.all(
+        ids.map(id => fetch(`/api/listing/get/${id}`).then(r => r.json()))
+      );
+      setSavedListings(results.filter(r => r.success !== false));
+    };
+    fetchSaved();
+  }, []);
+
   return (
     <div className='min-h-screen bg-slate-50'>
 
-      {/* ── HEADER BANNER ── */}
       <div className='w-full bg-[#0d1b2a] relative overflow-hidden'>
         <div
           className='absolute top-0 left-0 right-0'
@@ -143,7 +156,6 @@ export default function Profile() {
         <div className='max-w-5xl mx-auto px-8 py-14 relative z-10'>
           <div className='flex flex-col sm:flex-row items-center sm:items-end gap-7'>
 
-            {/* Avatar */}
             <div className='relative shrink-0'>
               <input type="file" ref={fileRef} hidden accept='image/*'
                 onChange={(e) => { const file = e.target.files[0]; if (file) handleFileUpload(file); }} />
@@ -158,7 +170,6 @@ export default function Profile() {
               </button>
             </div>
 
-            {/* User info */}
             <div className='text-center sm:text-left sm:pb-1'>
               <div className='flex items-center justify-center sm:justify-start gap-2 mb-2'>
                 <div className='h-px w-5 bg-amber-500'></div>
@@ -173,7 +184,6 @@ export default function Profile() {
             </div>
           </div>
 
-          {/* Upload status */}
           {(fileUploadError || (filePerc > 0 && filePerc <= 100)) && (
             <div className={`mt-6 px-5 py-3 rounded-lg text-sm font-medium flex items-center gap-3 max-w-md
               ${fileUploadError ? 'bg-red-900/30 border border-red-500/30 text-red-400'
@@ -190,7 +200,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* ── TAB BAR ── */}
       <div className='w-full bg-white border-b border-slate-100 shadow-sm'>
         <div className='max-w-5xl mx-auto px-8'>
           <div className='flex'>
@@ -201,13 +210,10 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* ── MAIN GRID ── */}
       <div className='max-w-5xl mx-auto px-8 py-10 grid grid-cols-1 lg:grid-cols-3 gap-8'>
 
-        {/* LEFT — Form */}
         <div className='lg:col-span-2 flex flex-col gap-6'>
 
-          {/* Personal Info card */}
           <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
             <div className='px-8 py-5 border-b border-slate-100 flex items-center gap-3'>
               <div className='w-1 h-5 bg-amber-500 rounded-full'></div>
@@ -278,7 +284,7 @@ export default function Profile() {
                 <p className='text-sm font-semibold text-slate-700 mb-0.5'>Delete this account</p>
                 <p className='text-xs text-slate-400'>Permanently remove your account and all your data. This cannot be undone.</p>
               </div>
-              {/* ✅ Opens modal with type: 'account' */}
+
               <button
                 onClick={() => setModal({ open: true, id: null, type: 'account' })}
                 className='shrink-0 border border-red-200 hover:bg-red-500 hover:border-red-500 text-red-500 hover:text-white text-xs font-bold tracking-widest uppercase px-5 py-2.5 rounded-xl transition-all duration-200'>
@@ -288,10 +294,10 @@ export default function Profile() {
           </div>
         </div>
 
-        {/* RIGHT — Sidebar */}
+
         <div className='flex flex-col gap-5'>
 
-          {/* Create Listing — admin only */}
+
           {isAdmin && (
             <div className='bg-[#0d1b2a] rounded-2xl overflow-hidden relative'>
               <div
@@ -317,7 +323,6 @@ export default function Profile() {
             </div>
           )}
 
-          {/* View Listings */}
           <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
             <div className='px-6 py-5 border-b border-slate-100 flex items-center gap-3'>
               <div className='w-1 h-5 bg-slate-300 rounded-full'></div>
@@ -339,6 +344,58 @@ export default function Profile() {
             </div>
           </div>
 
+
+          <div className={`bg-white rounded-2xl border shadow-sm overflow-hidden transition-all duration-200
+            ${savedListings.length > 0 ? 'border-red-200' : 'border-slate-100'}`}>
+            <div className='px-6 py-5 border-b border-inherit flex items-center justify-between'>
+              <div className='flex items-center gap-3'>
+                <div className={`w-1 h-5 rounded-full ${savedListings.length > 0 ? 'bg-red-400' : 'bg-slate-300'}`}></div>
+                <h3 className='text-sm font-bold text-slate-700'>Saved Properties</h3>
+              </div>
+              {savedListings.length > 0 && (
+                <span className='bg-red-50 text-red-400 border border-red-200 text-xs font-bold px-2.5 py-1 rounded-full'>
+                  ♥ {savedListings.length}
+                </span>
+              )}
+            </div>
+            <div className='p-5'>
+              {savedListings.length === 0 ? (
+                <div className='text-center py-2'>
+                  <p className='text-2xl mb-2'>🤍</p>
+                  <p className='text-xs text-slate-400 leading-relaxed'>
+                    No saved properties yet. Tap ♥ on any listing to save it here.
+                  </p>
+                </div>
+              ) : (
+                <div className='flex flex-col gap-3'>
+                  {savedListings.slice(0, 3).map((listing) => (
+                    <Link key={listing._id} to={`/listing/${listing._id}`}
+                      className='flex items-center gap-3 group'>
+                      <img src={listing.imageUrls[0]} alt=''
+                        className='w-12 h-10 object-cover rounded-lg shrink-0 border border-slate-100 group-hover:border-red-200 transition-colors duration-200' />
+                      <div className='min-w-0 flex-1'>
+                        <p className='text-xs font-semibold text-slate-700 truncate group-hover:text-red-500 transition-colors duration-200'>
+                          {listing.name}
+                        </p>
+                        <p className='text-xs text-slate-400 truncate mt-0.5'>
+                          ${listing.offer
+                            ? listing.discountPrice.toLocaleString('en-US')
+                            : listing.regularPrice.toLocaleString('en-US')}
+                          {listing.type === 'rent' ? '/mo' : ''}
+                        </p>
+                      </div>
+                      <span className='text-red-400 text-xs shrink-0'>♥</span>
+                    </Link>
+                  ))}
+                  {savedListings.length > 3 && (
+                    <p className='text-xs text-slate-400 text-center pt-1'>
+                      +{savedListings.length - 3} more below ↓
+                    </p>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
           {/* Sign Out */}
           <button onClick={handleSignout}
             className='w-full bg-white border border-slate-200 hover:border-slate-400 text-slate-500 hover:text-slate-800 font-bold text-xs tracking-widest uppercase py-3.5 rounded-2xl shadow-sm transition-all duration-200 flex items-center justify-center gap-2'>
@@ -348,7 +405,6 @@ export default function Profile() {
         </div>
       </div>
 
-      {/* ── LISTINGS TABLE ── */}
       {userListings && userListings.length > 0 && (
         <div className='max-w-5xl mx-auto px-8 pb-20'>
           <div className='bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden'>
@@ -395,7 +451,6 @@ export default function Profile() {
                           Edit
                         </button>
                       </Link>
-                      {/* ✅ Opens modal with type: 'listing' */}
                       <button
                         onClick={() => setModal({ open: true, id: listing._id, type: 'listing' })}
                         className='text-xs font-bold tracking-widest uppercase text-slate-300 hover:text-red-500 border border-slate-200 hover:border-red-300 hover:bg-red-50 px-4 py-2 rounded-lg transition-all duration-200'>
