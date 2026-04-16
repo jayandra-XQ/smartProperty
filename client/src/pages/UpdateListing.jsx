@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate, useParams } from 'react-router-dom';
 
-// Outside component to avoid re-creation on every render
 const CheckPill = ({ id, label, checked, onChange }) => (
   <label className={`flex items-center gap-2.5 px-4 py-2.5 rounded-xl border cursor-pointer transition-all duration-200 select-none text-sm font-medium
     ${checked
@@ -84,12 +83,10 @@ export default function UpdateListing() {
     }
   };
 
-  // remove image
   const handleRemoveImage = (index) => {
     setFormData((prev) => ({ ...prev, imageUrls: prev.imageUrls.filter((_, i) => i !== index) }));
   };
 
-  // form input change
   const handleChange = (e) => {
     if (e.target.id === "sale" || e.target.id === "rent") {
       setFormData({ ...formData, type: e.target.id });
@@ -102,7 +99,6 @@ export default function UpdateListing() {
     }
   };
 
-  // submit update
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {

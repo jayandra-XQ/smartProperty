@@ -68,7 +68,6 @@ export default function Home() {
               backgroundSize: '48px 48px'
             }}
           ></div>
-          {/* Gold top line */}
           <div
             className='absolute top-0 left-0 right-0'
             style={{ height: '2px', background: 'linear-gradient(90deg, transparent, #f59e0b, transparent)' }}
@@ -121,7 +120,7 @@ export default function Home() {
             <div className='flex gap-10 pt-8 border-t border-slate-700'>
               {[
                 { number: '500+', label: 'Listings' },
-                { number: '12K', label: 'Happy Clients' },
+                { number: '5K', label: 'Happy Clients' },
                 { number: '98%', label: 'Satisfaction' },
               ].map((s) => (
                 <div key={s.label}>
@@ -178,22 +177,17 @@ export default function Home() {
 
             <div className='absolute inset-0 overflow-hidden' style={{ background: 'linear-gradient(160deg, #0f2236 0%, #0d1b2a 60%, #111827 100%)' }}>
 
-              {/* Grid texture */}
+
               <div className='absolute inset-0' style={{
                 backgroundImage: 'linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px)',
                 backgroundSize: '40px 40px',
               }}></div>
 
-              {/* Big amber glow blob */}
               <div className='absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 rounded-full' style={{ background: 'radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%)' }}></div>
 
-              {/* Gold left accent */}
               <div className='absolute top-0 bottom-0 left-0' style={{ width: '2px', background: 'linear-gradient(to bottom, transparent, #f59e0b, transparent)' }}></div>
 
-              {/* Content */}
               <div className='absolute inset-0 flex flex-col justify-between p-10'>
-
-                {/* TOP — 3 mini stat cards */}
                 <div className='flex flex-col gap-3'>
                   <p className='text-xs font-bold tracking-widest uppercase text-amber-500 flex items-center gap-2 mb-1'>
                     <span style={{ display: 'inline-block', width: '16px', height: '1px', background: '#f59e0b' }}></span>

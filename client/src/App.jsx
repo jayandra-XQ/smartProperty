@@ -15,6 +15,7 @@ import UpdateListing from './pages/UpdateListing'
 import Listing from './pages/Listing'
 import Search from './pages/Search';
 import AdminDashboard from './pages/Admindashboard'
+import NotFound from './pages/NotFound'
 
 
 const AdminRoute = () => {
@@ -49,6 +50,7 @@ function App() {
           <Route path='/admin' element={<AdminDashboard />} />
         </Route>
 
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </BrowserRouter>
 

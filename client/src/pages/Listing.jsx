@@ -29,6 +29,7 @@ export default function Listing() {
   const [copied, setCopied] = useState(false);
   const [contact, setContact] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [showLoginMsg, setShowLoginMsg] = useState(false);
   const params = useParams();
 
   useEffect(() => {
@@ -58,6 +59,12 @@ export default function Listing() {
 
   const handleSave = () => {
     if (!listing) return;
+    if (!currentUser) {
+      setShowLoginMsg(true);
+      setTimeout(() => setShowLoginMsg(false), 3000);
+      return;
+    }
+
     const isNowSaved = toggleFavourite(listing._id);
     setSaved(isNowSaved);
   };
@@ -65,7 +72,7 @@ export default function Listing() {
   return (
     <main className='min-h-screen bg-slate-50'>
 
-      {/* ── LOADING ── */}
+      {/* LOADING  */}
       {loading && (
         <div className='flex flex-col items-center justify-center min-h-[60vh] gap-4'>
           <div className='w-10 h-10 border-4 border-slate-200 border-t-amber-500 rounded-full animate-spin'></div>
@@ -296,6 +303,17 @@ export default function Listing() {
 
               <div className='bg-white rounded-2xl border border-slate-100 shadow-sm p-6'>
                 <p className='text-xs text-slate-400 mb-3 text-center'>Save this property</p>
+
+                {showLoginMsg && (
+                  <div className='bg-[#0d1b2a] border border-amber-500/30 rounded-xl px-4 py-3 mb-3 flex items-center gap-2'>
+                    <span className='text-amber-400 text-sm'>🔒</span>
+                    <p className='text-white text-xs font-medium flex-1'>Sign in to save properties</p>
+                    <a href='/sign-in' className='text-amber-400 text-xs font-bold hover:text-amber-300 shrink-0'>
+                      Sign In →
+                    </a>
+                  </div>
+                )}
+
                 <button
                   onClick={handleSave}
                   className={`w-full font-bold text-xs tracking-widest uppercase py-3.5 rounded-xl transition-all duration-200 flex items-center justify-center gap-2

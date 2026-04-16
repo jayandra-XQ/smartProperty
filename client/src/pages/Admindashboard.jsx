@@ -147,7 +147,6 @@ export default function AdminDashboard() {
           </Link>
         </div>
 
-        {/* Admin user pill */}
         <div className='relative z-10 px-4 pb-6'>
           <div className='flex items-center gap-3 bg-slate-800/60 rounded-xl px-4 py-3 border border-slate-700/50'>
             <img src={currentUser?.avatar} alt='' className='w-8 h-8 rounded-full object-cover ring-2 ring-amber-500/30 shrink-0' />
@@ -162,7 +161,6 @@ export default function AdminDashboard() {
 
       <div className='lg:ml-64'>
 
-        {/* Top bar */}
         <div className='bg-white border-b border-slate-200 px-8 py-5 flex items-center justify-between sticky top-0 z-10 shadow-sm'>
           <div>
             <p className='text-xs font-bold tracking-widest uppercase text-slate-400 mb-0.5'>

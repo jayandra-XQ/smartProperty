@@ -95,6 +95,8 @@ export default function Profile() {
       const res = await fetch('/api/auth/signout', { method: 'POST' });
       const data = await res.json();
       if (data.success === false) { dispatch(deleteUserFailure(data.message)); return; }
+
+      localStorage.removeItem('favourites');
       dispatch(deleteUserSuccess(data));
     } catch (error) { dispatch(deleteUserFailure(error.message)); }
   }
@@ -109,7 +111,6 @@ export default function Profile() {
     } catch (error) { setShowListingsError(true, error.message); }
   }
 
-  // Called by modal confirm when type === 'listing'
   const handleListingDelete = async (listingId) => {
     try {
       const res = await fetch(`/api/listing/delete/${listingId}`, { method: 'DELETE' });

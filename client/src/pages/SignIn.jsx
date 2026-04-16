@@ -53,7 +53,6 @@ export default function SignIn() {
         {/* Card */}
         <div className='bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden'>
 
-          {/* Card Header */}
           <div className='bg-slate-800 px-8 py-8 text-center'>
             <p className='text-xs font-semibold tracking-widest uppercase text-amber-400 mb-2'>
               Welcome Back
@@ -64,7 +63,6 @@ export default function SignIn() {
             </p>
           </div>
 
-          {/* Card Body */}
           <div className='px-8 py-8'>
             <form className='flex flex-col gap-5' onSubmit={handleSubmit}>
 
@@ -96,14 +94,12 @@ export default function SignIn() {
                 />
               </div>
 
-              {/* Error */}
               {error && (
                 <div className='bg-red-50 border border-red-200 rounded-lg px-4 py-3'>
                   <p className='text-red-600 text-sm font-medium'>{error}</p>
                 </div>
               )}
 
-              {/* Submit */}
               <button
                 disabled={loading}
                 className='w-full bg-slate-800 text-white py-3 rounded-lg text-sm font-semibold tracking-wide uppercase hover:bg-slate-700 active:bg-slate-900 disabled:opacity-60 disabled:cursor-not-allowed transition-colors duration-200 mt-1'
@@ -119,7 +115,6 @@ export default function SignIn() {
                 ) : 'Sign In'}
               </button>
 
-              {/* Divider */}
               <div className='flex items-center gap-3 my-1'>
                 <div className='flex-1 h-px bg-slate-100'></div>
                 <span className='text-xs text-slate-400 font-medium'>or continue with</span>
@@ -141,7 +136,6 @@ export default function SignIn() {
           </div>
         </div>
 
-        {/* Below card note */}
         <p className='text-center text-xs text-slate-400 mt-6'>
           By signing in, you agree to smartProperty's terms & privacy policy.
         </p>
